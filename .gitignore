@@ -1,0 +1,11 @@
+# 忽略 Python 缓存文件
+__pycache__/
+
+# 忽略虚拟环境
+venv/
+
+# 忽略 IntelliJ IDEA 或 PyCharm 自动生成的配置文件
+.idea/
+
+# 忽略 Django 项目中的 migrations 文件夹
+migrations/
