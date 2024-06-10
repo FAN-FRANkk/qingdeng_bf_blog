@@ -1,0 +1,48 @@
+{% extends 'admin_child_1/base.html' %}
+{% block title %}北枫小站后台{% endblock %}
+{% block main_title %}
+    文章分类
+{% endblock %}
+{% block content %}
+    <div class="layui-container">
+        <button type="button" class="layui-btn" id="add_btn" lay-on="prompt">新增分类</button>
+        <table class="layui-hide" id="ID-table-demo-data"></table>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+    layui.use(function(){
+        let layer = layui.layer;
+        let util = layui.util;
+        let $ = layui.$;
+        // 批量事件
+        util.on('lay-on', {
+            prompt: function (){
+              layer.prompt(
+                  {title: '新增分类', formType: 0, maxlength: 10},
+                  function (value, index) {
+                      if (value !== ''){
+                          $.post("{{ url_for('admin.category_add') }}", {value: value}, (res)=>{
+                              if(res === 'success'){
+                                  layer.close(index)
+                                  layer.msg('保存成功', {icon: 6, time: 1500})
+                              }
+                              else {
+                                  layer.msg('分类已存在', {icon: 7, time: 1500, anim: 6})
+                              }
+                          })
+
+                      }
+                      else {
+                          layer.msg('请输入分类名称', {icon: 7, time: 1500, anim: 6})
+                      }
+
+                  }
+              );
+            }
+        });
+    });
+    </script>
+{% endblock %}
