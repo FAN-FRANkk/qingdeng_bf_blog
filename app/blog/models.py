@@ -73,7 +73,7 @@ class Comment(BaseModel):
     visitor_address = db.Column(db.String(32), comment='visitor address')
     post_id = db.Column(db.Integer, db.ForeignKey('tb_post.id'))
     replied_id = db.Column(db.Integer, db.ForeignKey('tb_comment.id'), comment='回复的评论id')
-    replied = db.relationship('Comment', backref='replies', cascade='delete')
+    replied = db.relationship('Comment', backref='replies', remote_side='Comment.id', cascade='delete')
 
 class Message(BaseModel):
     """ 留言表 """

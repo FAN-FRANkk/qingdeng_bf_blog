@@ -28,6 +28,7 @@
                               if(res === 'success'){
                                   layer.close(index)
                                   layer.msg('保存成功', {icon: 6, time: 1500})
+                                  location.reload()
                               }
                               else {
                                   layer.msg('分类已存在', {icon: 7, time: 1500, anim: 6})
@@ -44,5 +45,30 @@
             }
         });
     });
+
+    layui.use('table', function () {
+            let table = layui.table;
+
+            // 已知数据渲染
+            let inst = table.render({
+                elem: '#ID-table-demo-data',
+                url: '{{ url_for("admin.category_query") }}',
+                cols: [[ //标题栏
+                    {field: 'id', title: 'ID', width: 80, sort: true},
+                    {field: 'name', title: '分类名称', width: 100},
+                    {field: 'add_time', title: '添加时间', minWidth: 160},
+                    {field: 'modify_time', title: '修改时间', minWidth: 160},
+                ]],
+                data: '{{ category_list }}',
+                //skin: 'line', // 表格风格
+                //even: true,
+                page: true, // 是否显示分页
+                limits: [5, 10, 15],
+                limit: 5 // 每页默认显示的数量
+            });
+        });
+
     </script>
 {% endblock %}
+
+
